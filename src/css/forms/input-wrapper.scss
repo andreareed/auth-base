@@ -1,0 +1,29 @@
+.input-wrapper {
+  margin: 15px 0;
+}
+
+.input-wrapper__label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.input-wrapper__disabled {
+  color: var(--gray);
+}
+
+.input-wrapper__validation {
+  color: var(--red);
+}
+
+.input-validation {
+  color: #fff;
+  background-color: var(--red);
+  font-size: 14px;
+  padding: 8px;
+  margin: 6px 0;
+  border-radius: 3px;
+}
+
+.input-scaffold__helper-text {
+  font-size: 12px;
+}
