@@ -1,13 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import localstorage from 'store2';
 import logo from './logo.svg';
 import Register from './views/Register';
 import Login from './views/Login';
 
+import { verifyToken } from './redux/actions';
+
 class App extends Component {
   state = {
-    view: 'Register',
+    view: 'register',
   };
+
+  componentDidMount() {
+    const { user, verifyToken } = this.props;
+    if (!user) {
+      const token = localstorage.get('token');
+      if (token) {
+        verifyToken(token);
+      }
+    }
+  }
+
   render() {
     const { view } = this.state;
     const { user } = this.props;
@@ -50,7 +64,7 @@ class App extends Component {
               <Register onSuccess={() => this.setState({ view: 'success' })} />
             )}
             {view === 'login' && <Login onSuccess={() => this.setState({ view: 'success' })} />}
-            {view === 'success' && (
+            {view === 'success' && user && (
               <div className="app-success">
                 <div>
                   <h3>
@@ -69,10 +83,18 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.user.toJS());
   return {
     user: state.user,
   };
 };
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => {
+  return {
+    verifyToken: token => dispatch(verifyToken(token)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

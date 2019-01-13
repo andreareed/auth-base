@@ -10,18 +10,29 @@ module.exports = {
       {
         method: 'POST',
         path: '/auth/token',
-        config: {
-          validate: {},
-        },
         handler: controller.getToken,
+        config: {
+          validate: {
+            payload: {
+              email: Joi.string()
+                .email()
+                .required(),
+              password: Joi.string().required(),
+            },
+          },
+        },
       },
       {
         method: 'POST',
         path: '/auth/verify-token',
-        config: {
-          validate: {},
-        },
         handler: controller.verifyToken,
+        config: {
+          validate: {
+            payload: {
+              token: Joi.string().required(),
+            },
+          },
+        },
       },
     ]);
   },
