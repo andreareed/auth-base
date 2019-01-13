@@ -5,6 +5,10 @@ module.exports = {
     return User.query().findById(id);
   },
 
+  async findByEmail(email) {
+    return User.query().findOne({ email });
+  },
+
   async registerUser(data) {
     return User.query().insertAndFetch(data);
   },

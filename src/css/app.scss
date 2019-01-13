@@ -23,20 +23,73 @@
   }
 }
 
-.app-instructions {
+.app-main {
   display: flex;
-  // justify-content: center;
+  flex-wrap: wrap;
+  justify-content: center;
   color: #fff;
 
-  > div,
-  form {
-    width: 50%;
+  .app-instructions {
+    width: calc(60% - 40px);
+    min-width: 400px;
     padding: 20px;
+    @media (max-width: 767px) {
+      width: 100%;
+    }
+  }
+
+  .app-forms {
+    width: 40%;
+    min-width: 300px;
+
+    @media (max-width: 767px) {
+      width: 100%;
+    }
+  }
+
+  form {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
 
     button {
       width: 100%;
       margin: 10px 0;
     }
+  }
+}
+
+.app-links {
+  display: flex;
+  justify-content: center;
+
+  button {
+    outline: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 0 20px;
+    border-right: 2px solid #fff;
+  }
+
+  button:last-child {
+    border-right: none;
+  }
+}
+
+.app-success {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 200px;
+
+  small {
+    display: block;
+    margin-top: 8px;
   }
 }
 

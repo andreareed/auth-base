@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { fromJS, Map } from 'immutable';
 import store2 from 'store2';
 
-import { REGISTER_USER } from './actions';
+import { REGISTER_USER, LOGIN_USER } from './actions';
 
 const loading = (state = false, action) => {
   switch (action.type) {
@@ -14,6 +14,10 @@ const loading = (state = false, action) => {
 const user = (state = Map(), action) => {
   switch (action.type) {
     case `${REGISTER_USER}_SUCCESS`:
+      store2.set('token', action.json.token);
+      return fromJS(action.json);
+
+    case `${LOGIN_USER}_SUCCESS`:
       store2.set('token', action.json.token);
       return fromJS(action.json);
 

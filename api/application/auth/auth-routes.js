@@ -9,11 +9,11 @@ module.exports = {
     server.route([
       {
         method: 'POST',
-        path: '/auth/login',
+        path: '/auth/token',
         config: {
           validate: {},
         },
-        handler: controller.login,
+        handler: controller.getToken,
       },
       {
         method: 'POST',
