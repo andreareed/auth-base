@@ -18,6 +18,7 @@ const config = {
   },
   production: {
     db: {
+      connection: process.env.CONNECTION_STRING,
       seedDirectory: './seeds/prod',
       migrationDirectory: './database/migrations',
       debug: false,

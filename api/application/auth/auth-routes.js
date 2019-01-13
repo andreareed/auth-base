@@ -27,6 +27,9 @@ module.exports = {
         path: '/auth/verify-token',
         handler: controller.verifyToken,
         config: {
+          auth: {
+            strategies: ['jwt'],
+          },
           validate: {
             payload: {
               token: Joi.string().required(),

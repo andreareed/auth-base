@@ -87,27 +87,31 @@ class App extends Component {
           <img src={logo} className="app-logo" alt="logo" />
           <div>
             <h1>Auth Base</h1>
-            <h3>A React boilerplate for apps requiring a login</h3>
+            <h3>A React boilerplate for Registration and Login</h3>
           </div>
         </header>
         <div className="app-main container">
           <div className="app-instructions">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
+              Welcome to Auth Base! To get started, use <code>.env.sample</code> to create your{' '}
+              <code>.env</code> file with your database credentials and JSON web token secret. Then,
+              run <code>knex migrate:latest</code> to create your users table.
             </p>
 
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
+              Once your table is created, you can test it out here. Registering for a new account
+              will automatically log you in and display your user information. You will then have
+              the option to logout if you'd like to try out the login form too!
+            </p>
+            <p>
+              For more information, check out the{' '}
+              <a
+                href="https://github.com/andreareed/auth-base/blob/master/README.md"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                README
+              </a>
             </p>
           </div>
           <div className="app-forms">

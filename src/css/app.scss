@@ -34,8 +34,24 @@
     width: calc(60% - 40px);
     min-width: 400px;
     padding: 20px;
+    font-size: 22px;
+    line-height: 32px;
+    height: 550px;
+
+    code {
+      background-color: #ddd;
+      color: #333;
+      margin: 0 5px;
+      padding: 0 5px;
+    }
+
+    a {
+      color: #61d9fa;
+    }
+
     @media (max-width: 767px) {
       width: 100%;
+      height: inherit;
     }
   }
 
@@ -57,6 +73,9 @@
     button {
       width: 100%;
       margin: 10px 0;
+      background-color: #29a645;
+      border: none;
+      color: #fff;
     }
   }
 }
