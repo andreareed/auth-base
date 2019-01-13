@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
@@ -15,9 +16,15 @@ const validationSchema = Yup.object().shape({
 });
 
 class Login extends Component {
+  static propTypes = {
+    loginUser: PropTypes.func.isRequired,
+    onSuccess: PropTypes.func,
+  };
+
   state = {
     error: '',
   };
+
   renderForm = ({ touched, errors, isSubmitting }) => (
     <Form>
       <InputWrapper label="Email" required validation={touched.email && errors.email}>

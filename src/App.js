@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Map } from 'immutable';
 import localstorage from 'store2';
 import logo from './logo.svg';
 import Register from './views/Register';
@@ -9,6 +11,13 @@ import Loading from './common/components/Loading';
 import { verifyToken, logout } from './redux/actions';
 
 class App extends Component {
+  static propTypes = {
+    user: PropTypes.instanceOf(Map),
+    loading: PropTypes.bool.isRequired,
+    verifyToken: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired,
+  };
+
   state = {
     view: 'login',
   };
@@ -32,13 +41,46 @@ class App extends Component {
     this.setState({ view: 'login' });
   };
 
-  render() {
+  renderView = () => {
     const { view } = this.state;
     const { user, loading } = this.props;
-    const register = view === 'register' && !loading;
-    const login = view === 'login' && !loading;
-    const success = view === 'success' && !loading;
 
+    if (loading) {
+      return <Loading />;
+    }
+
+    if (view === 'register') {
+      return <Register onSuccess={() => this.setState({ view: 'success' })} />;
+    }
+
+    if (view === 'success') {
+      if (!user) {
+        return (
+          <div className="app-success">
+            <h3>Logged Out</h3>
+          </div>
+        );
+      }
+      return (
+        <div className="app-success">
+          <div>
+            <h3>
+              {user.get('first_name')} {user.get('last_name')}
+            </h3>
+            {user.get('email')}
+            <small>User ID {user.get('id')}</small>
+            <button className="btn" onClick={this.logout}>
+              Logout
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return <Login onSuccess={() => this.setState({ view: 'success' })} />;
+  };
+
+  render() {
     return (
       <div className="app">
         <header className="app-header">
@@ -74,28 +116,7 @@ class App extends Component {
               <button onClick={() => this.setState({ view: 'login' })}>Login</button>
               <button onClick={() => this.setState({ view: 'success' })}>Current User</button>
             </div>
-            {loading && <Loading />}
-            {register && <Register onSuccess={() => this.setState({ view: 'success' })} />}
-            {login && <Login onSuccess={() => this.setState({ view: 'success' })} />}
-            {success && user && (
-              <div className="app-success">
-                <div>
-                  <h3>
-                    {user.get('first_name')} {user.get('last_name')}
-                  </h3>
-                  {user.get('email')}
-                  <small>User ID {user.get('id')}</small>
-                  <button className="btn" onClick={this.logout}>
-                    Logout
-                  </button>
-                </div>
-              </div>
-            )}
-            {success && !user && (
-              <div className="app-success">
-                <h3>Logged Out</h3>
-              </div>
-            )}
+            {this.renderView()}
           </div>
         </div>
       </div>
