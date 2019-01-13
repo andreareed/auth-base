@@ -2,7 +2,7 @@
 
 ### Jump Start your App!
 
-The initial setup of a full stack app can be time consuming. Auth Base was created to alleviate much of that boilerplate work. Build with [Create React App](https://facebook.github.io/create-react-app/), Auth Base runs on [Hapi](https://hapijs.com/) and comes preconfigured to work with [Knex.js](https://knexjs.org/) on a PostgreSQL database. It includes register, login, and logout functions, as well as authenticating users via JSON web tokens. A number of other things such as [Redux](https://redux.js.org/), [Redux Thunk](https://github.com/reduxjs/redux-thunk), and [React Router](https://reacttraining.com/react-router/web/guides/quick-start) have been included as well, to make life easier and get you up and running faster.
+The initial setup of a full stack app can be time consuming. Auth Base was created to alleviate much of that boilerplate work. Build with [Create React App](https://facebook.github.io/create-react-app/), Auth Base runs on [Hapi](https://hapijs.com/) and comes preconfigured to work with [Knex.js](https://knexjs.org/) and [Objection.js](http://vincit.github.io/objection.js/) on a PostgreSQL database. It includes register, login, and logout functions, as well as authenticating users via JSON web tokens. A number of other things such as [Redux](https://redux.js.org/), [Redux Thunk](https://github.com/reduxjs/redux-thunk), and [React Router](https://reacttraining.com/react-router/web/guides/quick-start) have been included as well, to make life easier and get you up and running faster.
 
 ## Getting Started
 
@@ -27,6 +27,8 @@ Run the migration with Knex. If you entered everything correctly, you should now
 #### Spin It Up!
 
 Start the server with `nodemon` and then run `npm start` or `yarn start`. Navigate to `http://localhost:3000/` to see the welcome page.
+
+![Welcome Page](https://s3-us-west-1.amazonaws.com/codereed/git-repo-images/AuthBaseWelcome.png)
 
 ## HTTP Requests
 
@@ -97,6 +99,10 @@ auth: {
   scope: ['admin'],
 }
 ```
+
+### Endpoint Testing
+
+If you're testing endpoints externally, you'll need to include your token in requests to secured endpoints. Include an `Authorization` header with the value `Bearer yourTokenHere`. Note that Auth Base adds /api by default, so the full endpoint will be something like `http://localhost:9000/api/users`.
 
 ## Forms
 
