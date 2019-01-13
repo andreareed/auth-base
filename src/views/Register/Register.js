@@ -71,10 +71,8 @@ class Register extends Component {
         }}
         validationSchema={validationSchema}
         onSubmit={(values, actions) => {
-          this.props.onRegisterSuccess(values).then(action => {
-            if (action.response.ok) {
-              return this.props.onPendingVerification();
-            } else {
+          this.props.registerUser(values).then(action => {
+            if (!action.response.ok) {
               if (action.json.validationErrors) {
                 action.json.validationErrors.forEach(({ key, message }) =>
                   actions.setFieldError(key, message)
