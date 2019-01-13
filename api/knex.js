@@ -1,7 +1,7 @@
 const config = require('./config');
 
 const options = {
-  debug: process.env.DEBUG,
+  debug: config[config.env].db.debug,
   client: 'pg',
   connection: config[config.env].db.connection,
 };

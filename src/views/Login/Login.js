@@ -15,6 +15,9 @@ const validationSchema = Yup.object().shape({
 });
 
 class Login extends Component {
+  state = {
+    error: '',
+  };
   renderForm = ({ touched, errors, isSubmitting }) => (
     <Form>
       <InputWrapper label="Email" required validation={touched.email && errors.email}>
@@ -28,6 +31,7 @@ class Login extends Component {
           Login
         </button>
       </div>
+      {this.state.error && <div className="form-error">{this.state.error}</div>}
     </Form>
   );
 
@@ -42,12 +46,11 @@ class Login extends Component {
         onSubmit={(values, actions) => {
           this.props.loginUser(values).then(action => {
             if (action.response.ok) {
+              this.setState({ error: '' });
               this.props.onSuccess();
             } else {
-              if (action.json.validationErrors) {
-                action.json.validationErrors.forEach(({ key, message }) =>
-                  actions.setFieldError(key, message)
-                );
+              if (action.json.message) {
+                this.setState({ error: action.json.message });
               }
             }
             actions.setSubmitting(false);

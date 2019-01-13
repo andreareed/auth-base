@@ -4,12 +4,13 @@ import localstorage from 'store2';
 import logo from './logo.svg';
 import Register from './views/Register';
 import Login from './views/Login';
+import Loading from './common/components/Loading';
 
-import { verifyToken } from './redux/actions';
+import { verifyToken, logout } from './redux/actions';
 
 class App extends Component {
   state = {
-    view: 'register',
+    view: 'login',
   };
 
   componentDidMount() {
@@ -17,14 +18,27 @@ class App extends Component {
     if (!user) {
       const token = localstorage.get('token');
       if (token) {
-        verifyToken(token);
+        verifyToken(token).then(action => {
+          if (action.response.ok) {
+            this.setState({ view: 'success' });
+          }
+        });
       }
     }
   }
 
+  logout = () => {
+    this.props.logout();
+    this.setState({ view: 'login' });
+  };
+
   render() {
     const { view } = this.state;
-    const { user } = this.props;
+    const { user, loading } = this.props;
+    const register = view === 'register' && !loading;
+    const login = view === 'login' && !loading;
+    const success = view === 'success' && !loading;
+
     return (
       <div className="app">
         <header className="app-header">
@@ -60,11 +74,10 @@ class App extends Component {
               <button onClick={() => this.setState({ view: 'login' })}>Login</button>
               <button onClick={() => this.setState({ view: 'success' })}>Current User</button>
             </div>
-            {view === 'register' && (
-              <Register onSuccess={() => this.setState({ view: 'success' })} />
-            )}
-            {view === 'login' && <Login onSuccess={() => this.setState({ view: 'success' })} />}
-            {view === 'success' && user && (
+            {loading && <Loading />}
+            {register && <Register onSuccess={() => this.setState({ view: 'success' })} />}
+            {login && <Login onSuccess={() => this.setState({ view: 'success' })} />}
+            {success && user && (
               <div className="app-success">
                 <div>
                   <h3>
@@ -72,7 +85,15 @@ class App extends Component {
                   </h3>
                   {user.get('email')}
                   <small>User ID {user.get('id')}</small>
+                  <button className="btn" onClick={this.logout}>
+                    Logout
+                  </button>
                 </div>
+              </div>
+            )}
+            {success && !user && (
+              <div className="app-success">
+                <h3>Logged Out</h3>
               </div>
             )}
           </div>
@@ -85,12 +106,14 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user,
+    loading: state.loading,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     verifyToken: token => dispatch(verifyToken(token)),
+    logout: () => dispatch(logout()),
   };
 };
 

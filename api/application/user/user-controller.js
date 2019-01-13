@@ -13,9 +13,10 @@ module.exports = {
       id: uuid.v4(),
       first_name,
       last_name,
-      email,
+      email: email.toLowerCase(),
       password: hashedPassword,
     });
+
     user.token = await JWT.sign({ id: user.id }, process.env.JWT_SECRET, {
       expiresIn: '36h',
     });

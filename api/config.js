@@ -13,12 +13,14 @@ const config = {
       },
       seedDirectory: './seeds/dev',
       migrationDirectory: './database/migrations',
+      debug: process.env.DEBUG,
     },
   },
   production: {
     db: {
       seedDirectory: './seeds/prod',
       migrationDirectory: './database/migrations',
+      debug: false,
     },
   },
 };

@@ -8,16 +8,17 @@ const userService = require('../user/user-service');
 module.exports = {
   async getToken(request) {
     const { email, password } = request.payload;
+    const invalidUserError = Boom.badRequest('Incorrect email address or password');
     let user = await userService.findByEmail(email);
 
     if (!user) {
-      throw Boom.unauthorized('Username or password are incorrect');
+      return invalidUserError;
     }
 
     const passwordsMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordsMatch) {
-      throw Boom.unauthorized('Username or password are incorrect');
+      return invalidUserError;
     }
 
     user.token = await JWT.sign({ id: user.id }, process.env.JWT_SECRET, {
