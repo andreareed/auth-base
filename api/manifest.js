@@ -1,4 +1,6 @@
 const Boom = require('boom');
+const path = require('path');
+const Inert = require('inert');
 const Bootstrap = require('./bootstrap');
 const JWTAuth = require('hapi-auth-jwt2');
 const objection = require('objection');
@@ -39,6 +41,6 @@ module.exports = {
     port: 9000,
   },
   register: {
-    plugins: [JWTAuth, Bootstrap, authRoutes, userRoutes],
+    plugins: [JWTAuth, Inert, Bootstrap, authRoutes, userRoutes],
   },
 };

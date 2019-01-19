@@ -1,3 +1,4 @@
+const path = require('path');
 const Hapi = require('hapi');
 const Glue = require('glue');
 
@@ -14,6 +15,17 @@ const startServer = async () => {
       manifest,
       options
     );
+    server.route({
+      method: 'GET',
+      path: '/{param*}',
+      handler: {
+        directory: {
+          path: path.join(__dirname, '../build'),
+          redirectToSlash: true,
+          index: true,
+        },
+      },
+    });
     await server.start();
     console.log('Server running at:', server.info.uri);
     console.log('Environment:', config.env);
