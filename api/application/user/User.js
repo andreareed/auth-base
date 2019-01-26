@@ -1,4 +1,5 @@
 const Knex = require('knex');
+const uuid = require('uuid');
 const connection = require('../../knexfile');
 const { Model } = require('objection');
 const knexConnection = Knex(connection);
@@ -15,6 +16,7 @@ class User extends Model {
   }
 
   $beforeInsert() {
+    this.id = uuid.v4();
     this.created_at = new Date().toISOString();
   }
 }

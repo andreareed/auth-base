@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt');
-const uuid = require('uuid');
 const JWT = require('jsonwebtoken');
 
 const service = require('../user/user-service');
@@ -10,7 +9,6 @@ module.exports = {
     const { email, password, first_name, last_name } = request.payload;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const user = await service.registerUser({
-      id: uuid.v4(),
       first_name,
       last_name,
       email: email.toLowerCase(),

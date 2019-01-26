@@ -21,6 +21,4 @@ module.exports = {
         }
       });
   },
-
-  async login(username, password) {},
 };
